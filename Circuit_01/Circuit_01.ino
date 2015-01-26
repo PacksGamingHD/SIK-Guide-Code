@@ -1,4 +1,4 @@
-int timeDelay[] = {500,1000,1350};
+int timeDelay[] = {500,1000,1350,350};
 
 void setup()
 {
@@ -8,7 +8,7 @@ void setup()
 void loop()
 {
   int index;
-  for(index = 0; index <= 2; index++);
+  for(index = 0; index <= 3; index++);
   {
   turnLED(timeDelay[index]);
   }
