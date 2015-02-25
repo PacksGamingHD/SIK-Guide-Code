@@ -16,10 +16,51 @@ Some code and wiring inspired by http://en.wikiversity.org/wiki/User:Dstaub/robo
 #define led2 10
 const int buzzerPin = 8;
 const int songLength = 1;
-char notes[] = "c"; // a space represents a rest
+char notes_close1[] = "c"; // a space represents a rest
+char notes_close2[] = "d"; 
 int beats[] = {4};
 int tempo = 150;
 
+void allThatJunk()
+  {
+      int i, duration;
+  
+  for (i = 0; i < songLength; i++) // step through the song arrays
+  {
+    duration = beats[i] * tempo;  // length of note/rest in ms
+    
+    if (notes_close1[i] == ' ')          // is this a rest? 
+    {
+      delay(duration);            // then pause for a moment
+    }
+    else                          // otherwise, play the note
+    {
+      tone(buzzerPin, frequency(notes_close1[i]), duration);
+      delay(duration);            // wait for tone to finish
+    }
+    delay(tempo/10);              // brief pause between notes
+}
+  }
+  void allThatJunk2()
+  {
+      int i, duration;
+  
+  for (i = 0; i < songLength; i++) // step through the song arrays
+  {
+    duration = beats[i] * tempo;  // length of note/rest in ms
+    
+    if (notes_close2[i] == ' ')          // is this a rest? 
+    {
+      delay(duration);            // then pause for a moment
+    }
+    else                          // otherwise, play the note
+    {
+      tone(buzzerPin, frequency(notes_close2[i]), duration);
+      delay(duration);            // wait for tone to finish
+    }
+    delay(tempo/10);              // brief pause between notes
+}
+  }
 void setup() {
   Serial.begin (9600);
   pinMode(trigPin, OUTPUT);
@@ -39,26 +80,15 @@ void loop() {
   digitalWrite(trigPin, LOW);
   duration = pulseIn(echoPin, HIGH);
   distance = (duration/2) / 29.1;
-  if (distance < 50) {  // This is where the LED On/Off happens
-    digitalWrite(led, HIGH); // When the Red condition is met, the Green LED should turn off
+  if (distance < 50 && distance > 25) {  // This is where the LED On/Off happens
+  digitalWrite(led, HIGH); // When the Red condition is met, the Green LED should turn off
   digitalWrite(led2, LOW);
-    int i, duration;
-  
-  for (i = 0; i < songLength; i++) // step through the song arrays
-  {
-    duration = beats[i] * tempo;  // length of note/rest in ms
-    
-    if (notes[i] == ' ')          // is this a rest? 
-    {
-      delay(duration);            // then pause for a moment
-    }
-    else                          // otherwise, play the note
-    {
-      tone(buzzerPin, frequency(notes[i]), duration);
-      delay(duration);            // wait for tone to finish
-    }
-    delay(tempo/10);              // brief pause between notes
-}
+  char notes_close1[] = "c";
+  allThatJunk();
+  }
+  else if (distance < 25) {
+    char notes_close2[] = "d";
+    allThatJunk2();
   }
   else {
     digitalWrite(led,LOW);
