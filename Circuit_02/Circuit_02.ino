@@ -1,3 +1,10 @@
+
+#include <stdlib.h>
+#if ARDUINO >= 100
+  #include <Arduino.h>
+#else
+  #include <wiring.h>
+#endif
 #include <VirtualWire.h>
 #define VW_MAX_MESSAGE_LEN 8
 uint8_t buf[VW_MAX_MESSAGE_LEN];
@@ -5,6 +12,7 @@ uint8_t buflen = VW_MAX_MESSAGE_LEN;
 
 const char *on3 = "c";
 const char *off3 = "d";
+
 void setup()
 {
 vw_set_ptt_inverted(true); // Required for RF Link modules
